@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<!--
+Matching Game
+Select the face on the left that is not on the right.
+-->
+<html>
+    <head>
+        <title>Matching Game</title>
+        <meta charset="UTF-8">
+        <meta name="author" content="Kimberly Stewart"/>
+        <meta name="description" content="Select the face on the left that is not on the right."/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            img {
+                position:absolute;  //So the faces can be placed anywhere.
+            }
+            div {
+                position:absolute;
+                width: 500px;
+                height: 500px;
+            }
+            #rightside {
+                left: 500px;
+                border-left: 1px solid black;   //The divider line.
+            }
+            #game_board {
+                top: 110px; //Move the face boxes under the header.
+            }
+        </style>
+    </head>
+    <body>
+        <div id="header">
+            <h1>Matching Game</h1>
+            <p>Click on the extra smiling face on the left.</p>
+        </div>
+        <!-- The containers for the smiling faces. -->
+        <div id="game_board">
+            <div id="leftside"></div>
+            <div id="rightside"></div>
+        </div>
+    </body>
+</html>

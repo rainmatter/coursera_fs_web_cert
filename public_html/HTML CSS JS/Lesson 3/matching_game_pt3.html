@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<!--
+Matching Game
+Select the face on the left that is not on the right.
+-->
+<html>
+    <head>
+        <title>Matching Game</title>
+        <meta charset="UTF-8">
+        <meta name="author" content="Kimberly Stewart"/>
+        <meta name="description" content="Select the face on the left that is not on the right."/>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            img {
+                position:absolute;  //So the faces can be placed anywhere.
+            }
+            div {
+                position:absolute;
+                width: 500px;
+                height: 500px;
+            }
+            #rightside {
+                left: 500px;
+                border-left: 1px solid black;   //The divider line.
+            }
+            #game_board {
+                top: 110px; //Move the face boxes under the header.
+            }
+        </style>
+        
+    </head>
+    <body onload="generateFaces()">
+        <div id="header">
+            <h1>Matching Game</h1>
+            <p>Click on the extra smiling face on the left.</p>
+        </div>
+        <!-- The containers for the smiling faces. -->
+        <div id="game_board">
+            <div id="leftside"></div>
+            <div id="rightside"></div>
+        </div>
+        
+        
+        <!-- Start JavaScript code. -->
+        <script>
+            //number of faces that will be generated.
+            var numberOfFaces = 5;  
+            //The left side smiling face container.
+            var theLeftSide = document.getElementById("leftside");
+            //The right side smiling face container.
+            var theRightSide = document.getElementById("rightside");
+            //console.log("test");
+            
+            //Function that generates the faces on the left side.
+            //Called in body onload.
+            function generateFaces() {
+                for (var i = 0; i < numberOfFaces; i++) {
+                    //Create an element.
+                    var thisFace = document.createElement("img");
+                    //Set the image source.
+                    thisFace.src = "http://home.cse.ust.hk/~rossiter/mooc/matching_game/smile.png";
+                    //Position the element from 0 to 400 from top and left.
+                    thisFace.style.top = Math.floor(Math.random() * 400) + "px";
+                    thisFace.style.left = Math.floor(Math.random() * 400) + "px";
+                    //Add the new element to the container element.
+                    theLeftSide.appendChild(thisFace);
+                }
+                //Copy the left smiling faces.
+                var leftClone = theLeftSide.cloneNode(true);
+                //Delete the last face.
+                console.log(leftClone.lastChild);
+                leftClone.removeChild(leftClone.lastChild);
+                //Add the new clone to the Right side container.
+                theRightSide.appendChild(leftClone);
+            };
+        </script>
+    </body>
+</html>

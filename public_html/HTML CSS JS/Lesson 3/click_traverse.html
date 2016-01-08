@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Traversing DOM with a Click</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body onload="attachHandler()">
+     
+        <script>
+            function handleClick(event) {
+                event.stopPropogation();
+                
+                var node = event.target;
+                var thisPath = node.nodeName;
+                
+                while (node.parentNode) {
+                    node = node.parentNode;
+                    thisPath = node.nodeName + " > " + thisPath;
+                }
+                alert(thisPath);
+            }
+            
+            function attachHandler() {
+                attachHandler(document);
+            }
+            
+            function attachHandler(node) {
+                if (node === null) return;
+                node.onClick = handleClick();
+                for (var i = 0; i < node.childNodes.length; i++) {
+                    attachHandler(node.childNodes[i]);
+                }
+            }
+        </script>
+        <h1>Traversing with a click</h1>
+        <h2>Lists</h2>
+        <ul>
+            <li>List 1</li>
+            <li>List 2</li>
+            <li>List 3</li>
+            <li>List 4</li>
+            <li>
+                <ul>
+                <li>List 1</li>
+                <li>List 2</li>
+                </ul>
+            </li>
+        </ul>
+        <input type="button" onclick="alert('Hello!')" value="Click Me!">
+    </body>
+</html>

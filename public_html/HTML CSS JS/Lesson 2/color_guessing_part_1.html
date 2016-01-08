@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Color Guessing Game</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body onload="do_game()">
+        <script>
+            var finished = false;
+            var numColors = 5;
+            var guesses = 0;
+            var colors = ["blue", "red", "orange", "purple", "green"];
+            var targetColor, targetIndex, guessInput;
+            var myBody = document.getElementsByTagName("body")[0];
+
+
+            function do_game() {
+                targetIndex = getRandomRumber();
+                targetColor = colors[targetIndex];
+                //console.log(targetColor);
+                alert(targetColor);
+                while (!finished) {
+                    guessInput = prompt("I am thinking of one of these colors:"
+                            + "\n\n" + colors + "\n\nWhat color am I thinking of?");
+                    guesses++;
+                    if (colors.indexOf(guessInput) === -1) {
+                        alert("Sorry, I don't recognize that color.\n\nPlease try again.");
+                    }
+                    if (guessInput === targetColor) {
+                        myBody.style.background = targetColor;
+                        alert("Congratulations! You have guessed the color!\n\n"
+                                + "It took you " + guesses + " guesses to finish the game!"
+                                + "\n\nYou can see the color in the background.");
+                        finished = true;
+                    }
+                }
+            }
+
+            function getRandomRumber() {
+                return Math.floor(Math.random() * numColors);
+            }
+
+
+        </script>
+    </body>
+</html>

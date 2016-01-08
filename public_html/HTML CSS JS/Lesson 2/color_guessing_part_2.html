@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<!--
+Initiates a color guessing game.
+Player guesses a color selected randomly from a list.
+Target color is logged in the console.
+-->
+<html lang="en-US">
+    <head>
+        <title>Color Guessing Game</title>
+        <meta charset="UTF-8"/>
+        <meta name="author" content="Kimberly Stewart"/>
+        <meta name="description" content="Sign up form for online dating web site."/>
+    </head>
+    <body onload="do_game()">
+        <script>
+            //Color guessing game.
+            var finished = false;
+            var guesses = 0;
+            var colors = ["blue", "red", "orange", "purple", 
+                "green", "yellow", "magenta", "brown", "cyan",
+                "gray", "navy", "pink", "teal"];
+            colors.sort();
+            var numColors = colors.length;
+            var targetColor, targetIndex, guessInput;
+            var myBody = document.getElementsByTagName("body")[0];
+
+
+            function do_game() {
+                targetIndex = getRandomNumber();
+                targetColor = colors[targetIndex];
+                console.log(targetIndex + "\n ");
+                console.log(targetColor);
+                while (!finished) {
+                    //Get input from user.
+                    guessInput = prompt("I am thinking of one of these colors:"
+                            + "\n\n" + colors + "\n\nWhat color am I thinking of?");
+                    guesses++;
+                    //Check if guess is correct and game is over.
+                    finished = checkGuess();
+                }
+            }
+
+            //Generates a random number between 0 and the number of colors.
+            function getRandomNumber() {
+                return Math.floor(Math.random() * numColors);
+            }
+            
+            //Checks if the guess is correct.
+            //Returns false if not in array, higher or lower.
+            //Returns true is guess is correct.
+            function checkGuess() {
+                if (colors.indexOf(guessInput) === -1) {
+                    alert("Sorry, I don't recognize that color.\n\nPlease try again.");
+                    return false;
+                } else if (guessInput > targetColor) {
+                    alert("Sorry, your guess is not correct!"
+                            + "\n\nHint: Your color is alphabetically higher than mine."
+                            + "\n\nPlease try again.");
+                    return false;
+                } else if (guessInput < targetColor) {
+                    alert("Sorry, your guess is not correct!"
+                            + "\n\nHint: Your color is alphabetically lower than mine."
+                            + "\n\nPlease try again.");
+                    return false;
+                } else {
+                    myBody.style.background = targetColor;
+                    alert("Congratulations! You have guessed the color!\n\n"
+                            + "It took you " + guesses + " guesses to finish the game!"
+                            + "\n\nYou can see the color in the background.");
+                    return true;
+                }
+            }
+        </script>
+    </body>
+</html>
