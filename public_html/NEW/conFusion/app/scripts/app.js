@@ -175,6 +175,7 @@ angular.module('confusionApp', [])
                       };
             $scope.commentInput = commentInput;
             
+            
             $scope.submitComment = function () {
                 
                 //Step 2: This is how you record the date
@@ -184,7 +185,7 @@ angular.module('confusionApp', [])
                 $scope.dish.comments.push($scope.commentInput);
                 
                 //Step 4: reset your form to pristine
-               $scope.cmForm.$setPristine();
+                $scope.cmForm.$setPristine();
                 
                 //Step 5: reset your JavaScript object that holds your comment
                 $scope.commentInput = {

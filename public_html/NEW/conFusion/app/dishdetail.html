@@ -60,12 +60,15 @@
                 </blockquote>
 
             </div>
+            
+            
+            
             <!-- Comment form -->
             <div class="row row-content" ng-controller="DishCommentController">
                 <div class="col-xs-9 col-xs-offset-1">
-                    <!-- Display form input. -->
+                    <!-- Display form input. --><!-- Display if author and comment not pristine and valid -->
                     <blockquote ng-show="!(cmForm.comment.$error.required || cmForm.author.$error.required) 
-                                    || !(cmForm.author.$pristine || cmForm.comment.$pristine)">
+                                    && !(cmForm.author.$pristine || cmForm.comment.$pristine)">
                         <p>{{commentInput.rating}} Stars</p>
                         <p>{{commentInput.comment}}</p>
                         <footer>{{commentInput.author}}, {{commentInput.date | date}}</footer>
@@ -73,16 +76,18 @@
 
                     <!-- Input form -->
                     <form class="form-horizontal" name="cmForm" ng-submit="submitComment()" novalidate>
-
+                        <!-- Name -->
                         <div class="form-group" ng-class="{ 'has-error' : cmForm.author.$error.required && !cmForm.author.$pristine }">
                             <label for="author" class="col-sm-2 control-label">Your Name</label>
                             <div class="col-sm-10">
                                 <input type="text" class="form-control" id="author" name="author" placeholder="Enter Your Name"
                                        ng-model="commentInput.author" required />
+                                <!-- Show alert if author is invalid and not pristine -->
                                 <span ng-show="cmForm.author.$error.required && !cmForm.author.$pristine" class="help-block">Your Name is required.</span>
                             </div>
                         </div>
                         <div class="form-group">
+                            <!-- Rating -->
                             <label class="col-xs-12 col-sm-2 control-label">Number of Stars</label>
                             <div class="col-xs-12 col-sm-5" >
                                 <p style="padding:0px;"></p>
@@ -94,15 +99,18 @@
                             </div>
                         </div>
                     <div class="form-group" ng-class="{ 'has-error' : cmForm.comment.$error.required && !cmForm.comment.$pristine }">
+                        <!-- Comment -->
                         <label for="comment" class="col-sm-2 control-label">Your Comments</label>
                         <div class="col-sm-10">
                         <textarea rows="10" cols="300" class="form-control" id="comment" name="comment" 
                                   ng-model="commentInput.comment" required></textarea>
+                        <!-- Show alert if comment is invalid and not pristine -->
                         <span ng-show="cmForm.comment.$error.required && !cmForm.comment.$pristine" class="help-block">Your First name is required.</span>
                         </div>
                     </div>
                         <div class="form-group">
                             <div class="col-xs-12 col-sm-offset-2">
+                                <!-- disable button if author and comment input is invalid -->
                                 <button class="btn btn-primary" type="submit"  ng-disabled="cmForm.$invalid">Submit Comment</button>
                             </div>
                         </div>
