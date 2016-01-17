@@ -152,15 +152,6 @@ angular.module('confusionApp', [])
             
             $scope.dish = dish;
             
-            var commentForm={
-                rating:5,
-                comment:"Good food!",
-                author:"Me",
-                date:"2016-01-16T17:57:28.556094Z"
-                
-            };
-            
-            $scope.commentForm = commentForm;
             
         }])
 
@@ -180,6 +171,8 @@ angular.module('confusionApp', [])
                 
                 //Step 2: This is how you record the date
                 $scope.commentInput.date = new Date().toISOString();
+                
+                //$scope.commentInput.rating = parseInt($scope.commentInput.rating);
                 
                 // Step 3: Push your comment into the dish's comment array
                 $scope.dish.comments.push($scope.commentInput);

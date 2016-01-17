@@ -68,7 +68,7 @@
                 <div class="col-xs-9 col-xs-offset-1">
                     <!-- Display form input. --><!-- Display if author and comment not pristine and valid -->
                     <blockquote ng-show="!(cmForm.comment.$error.required || cmForm.author.$error.required) 
-                                    && !(cmForm.author.$pristine || cmForm.comment.$pristine)">
+                                    && !(cmForm.$pristine)">
                         <p>{{commentInput.rating}} Stars</p>
                         <p>{{commentInput.comment}}</p>
                         <footer>{{commentInput.author}}, {{commentInput.date | date}}</footer>
@@ -91,11 +91,11 @@
                             <label class="col-xs-12 col-sm-2 control-label">Number of Stars</label>
                             <div class="col-xs-12 col-sm-5" >
                                 <p style="padding:0px;"></p>
-                                <input type="radio" id="1" name="numstars" value="1" ng-model="commentInput.rating" required /><label for="1">&nbsp;1 &nbsp;</label>
-                                <input type="radio" id="2" name="numstars" value="2" ng-model="commentInput.rating" required /><label for="2">&nbsp;2 &nbsp;</label>
-                                <input type="radio" id="3" name="numstars" value="3" ng-model="commentInput.rating" required /><label for="3">&nbsp;3 &nbsp;</label>
-                                <input type="radio" id="4" name="numstars" value="4" ng-model="commentInput.rating" required /><label for="4">&nbsp;4 &nbsp;</label>
-                                <input type="radio" id="5" name="numstars" value="5" ng-model="commentInput.rating" required /><label for="5">&nbsp;5 &nbsp;</label>
+                                <input type="radio" id="1" name="numstars" ng-value="1" ng-model="commentInput.rating" required /><label for="1">&nbsp;1 &nbsp;</label>
+                                <input type="radio" id="2" name="numstars" ng-value="2" ng-model="commentInput.rating" required /><label for="2">&nbsp;2 &nbsp;</label>
+                                <input type="radio" id="3" name="numstars" ng-value="3" ng-model="commentInput.rating" required /><label for="3">&nbsp;3 &nbsp;</label>
+                                <input type="radio" id="4" name="numstars" ng-value="4" ng-model="commentInput.rating" required /><label for="4">&nbsp;4 &nbsp;</label>
+                                <input type="radio" id="5" name="numstars" ng-value="5" ng-model="commentInput.rating" required /><label for="5">&nbsp;5 &nbsp;</label>
                             </div>
                         </div>
                     <div class="form-group" ng-class="{ 'has-error' : cmForm.comment.$error.required && !cmForm.comment.$pristine }">
