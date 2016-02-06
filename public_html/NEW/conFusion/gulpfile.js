@@ -1,5 +1,6 @@
 var gulp = require('gulp'),
-    minifycss = require('gulp-minify-css'),
+   //minifycss = require('gulp-minify-css'),
+    cssnano = require('gulp-cssnano'),
     jshint = require('gulp-jshint'),
     stylish = require('jshint-stylish'),
     uglify = require('gulp-uglify'),
@@ -12,7 +13,7 @@ var gulp = require('gulp'),
     changed = require('gulp-changed'),
     rev = require('gulp-rev'),
     browserSync = require('browser-sync'),
-    ngannotate = require('gulp-ng-annotate'),
+    //ngannotate = require('gulp-ng-annotate'),
     del = require('del');
     
 gulp.task('jshint', function() {
@@ -22,12 +23,18 @@ gulp.task('jshint', function() {
 });
 
 gulp.task('usemin',['jshint'], function () {
-  return gulp.src('./app/menu.html')
+  return gulp.src('./app/**/*.html')
       .pipe(usemin({
-        css:[minifycss(),rev()],
-        js: [ngannotate(),uglify(),rev()]
+        //css:[minifycss(),rev()]//,
+        //js: [ngannotate(),uglify(),rev()]
       }))
       .pipe(gulp.dest('dist/'));
+});
+
+gulp.task('cssnano', function() {
+    return gulp.src('./main.css')
+        .pipe(cssnano())
+        .pipe(gulp.dest('./out'));
 });
 
 // Images
@@ -54,8 +61,16 @@ gulp.task('copyfonts', ['clean'], function() {
 
 // Default task
 gulp.task('default', ['clean'], function() {
-    gulp.start('usemin', 'imagemin','copyfonts');
+    gulp.start('usemin','cssnano','imagemin','copyfonts');
 });
+
+// Default task (with sequential dependencies)
+/*gulp.task('default', ['clean', 'usemin','cssnano', 'imagemin','copyfonts'], function() {
+    // I commented below and added the tasks as sequential
+    // dependencies instead.
+ 
+    // gulp.start('usemin', 'imagemin','copyfonts');
+});*/
 
 
 // Watch
@@ -79,7 +94,7 @@ gulp.task('browser-sync', ['default'], function () {
    browserSync.init(files, {
       server: {
          baseDir: "dist",
-         index: "menu.html"
+         index: "index.html"
       }
    });
         // Watch any files in dist/, reload on change

@@ -1,0 +1,103 @@
+
+
+    <div class="container">
+        <div class="row row-content" ng-controller="DishDetailController">
+            <div class="col-xs-12">
+                <!-- back button -->
+                <div class="col-xs-12">
+                <button class="btn btn-xs btn-primary pull-right"
+                    type="button" ui-sref="app.menu">
+                    Back to Menu
+                </button>
+                <!-- Dish details -->
+                <div class="media">
+                    <div class="media-left media-middle">
+                        <a href="#">
+                        <img class="media-object img-thumbnail"
+                         ng-src={{dish.image}} alt="Uthappizza">
+                        </a>
+                    </div>
+                    <div class="media-body">
+                        <h2 class="media-heading">{{dish.name}}
+                         <span class="label label-danger">{{dish.label}}</span>
+                         <span class="badge">{{dish.price | currency}}</span></h2>
+                        <p>{{dish.description}}</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-xs-9 col-xs-offset-1">
+                <p><span style="font-size: 25px;">Customer Comments</span>&nbsp;&nbsp;&nbsp;&nbsp;
+                Sort by: <input type="text" ng-model="orderFilter"></p>
+               
+                <!-- comment list -->       
+                <blockquote  ng-repeat="comment in dish.comments | orderBy:orderFilter">
+                    <p>{{comment.rating}} Stars</p>
+                    <p>{{comment.comment}}</p>
+                    <footer>{{comment.author}}, {{comment.date | date}}</footer>
+                </blockquote>
+
+            </div>
+            
+            
+            
+            <!-- Comment form -->
+            <div class="row row-content" ng-controller="DishCommentController">
+                <div class="col-xs-9 col-xs-offset-1">
+                    <!-- Display form input. --><!-- Display if author and comment not pristine and valid -->
+                    <blockquote ng-show="!(cmForm.comment.$error.required || cmForm.author.$error.required) 
+                                    && !(cmForm.$pristine)">
+                        <p>{{commentInput.rating}} Stars</p>
+                        <p>{{commentInput.comment}}</p>
+                        <footer>{{commentInput.author}}, {{commentInput.date | date}}</footer>
+                    </blockquote>
+
+                    <!-- Input form -->
+                    <form class="form-horizontal" name="cmForm" ng-submit="submitComment()" novalidate>
+                        <!-- Name -->
+                        <div class="form-group" ng-class="{ 'has-error' : cmForm.author.$error.required && !cmForm.author.$pristine }">
+                            <label for="author" class="col-sm-2 control-label">Your Name</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="author" name="author" placeholder="Enter Your Name"
+                                       ng-model="commentInput.author" required />
+                                <!-- Show alert if author is invalid and not pristine -->
+                                <span ng-show="cmForm.author.$error.required && !cmForm.author.$pristine" class="help-block">Your Name is required.</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <!-- Rating -->
+                            <label class="col-xs-12 col-sm-2 control-label">Number of Stars</label>
+                            <div class="col-xs-12 col-sm-5" >
+                                <p style="padding:0px;"></p>
+                                <input type="radio" id="1" name="numstars" ng-value="1" ng-model="commentInput.rating" required /><label for="1">&nbsp;1 &nbsp;</label>
+                                <input type="radio" id="2" name="numstars" ng-value="2" ng-model="commentInput.rating" required /><label for="2">&nbsp;2 &nbsp;</label>
+                                <input type="radio" id="3" name="numstars" ng-value="3" ng-model="commentInput.rating" required /><label for="3">&nbsp;3 &nbsp;</label>
+                                <input type="radio" id="4" name="numstars" ng-value="4" ng-model="commentInput.rating" required /><label for="4">&nbsp;4 &nbsp;</label>
+                                <input type="radio" id="5" name="numstars" ng-value="5" ng-model="commentInput.rating" required /><label for="5">&nbsp;5 &nbsp;</label>
+                            </div>
+                        </div>
+                    <div class="form-group" ng-class="{ 'has-error' : cmForm.comment.$error.required && !cmForm.comment.$pristine }">
+                        <!-- Comment -->
+                        <label for="comment" class="col-sm-2 control-label">Your Comments</label>
+                        <div class="col-sm-10">
+                        <textarea rows="10" cols="300" class="form-control" id="comment" name="comment" 
+                                  ng-model="commentInput.comment" required></textarea>
+                        <!-- Show alert if comment is invalid and not pristine -->
+                        <span ng-show="cmForm.comment.$error.required && !cmForm.comment.$pristine" class="help-block">Your First name is required.</span>
+                        </div>
+                    </div>
+                        <div class="form-group">
+                            <div class="col-xs-12 col-sm-offset-2">
+                                <!-- disable button if author and comment input is invalid -->
+                                <button class="btn btn-primary" type="submit"  ng-disabled="cmForm.$invalid">Submit Comment</button>
+                            </div>
+                        </div>
+                        
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    
